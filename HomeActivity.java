@@ -35,8 +35,12 @@ public class HomeActivity extends AppCompatActivity {
     private Button refreshButton;
     private Button cameraButton;
     private ImageView image;
+    private Button logoutButton;
+
+
     private File photoFile;
     private String imageFileName;
+
 
     protected static final int CAPTURE_IMAGE_REQUEST_CODE = 1;
 
@@ -53,6 +57,7 @@ public class HomeActivity extends AppCompatActivity {
         refreshButton = findViewById(R.id.tbRefresh);
         cameraButton = findViewById(R.id.tbCamera);
         image = findViewById(R.id.ivImage);
+        logoutButton = findViewById(R.id.tbLogOut);
 
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +88,17 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loadTopPosts();
+            }
+        });
+
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParseUser.logOut();
+                ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
+
+                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                startActivity(intent);
             }
         });
     }

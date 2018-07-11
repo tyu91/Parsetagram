@@ -17,6 +17,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText usernameInput;
     private EditText passwordInput;
     private Button loginBtn;
+    private Button signupBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
         usernameInput = findViewById(R.id.etUsername);
         passwordInput = findViewById(R.id.etPassword);
         loginBtn = findViewById(R.id.tbLogin);
+        signupBtn = findViewById(R.id.tbSignup);
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,6 +36,15 @@ public class LoginActivity extends AppCompatActivity {
                 final String password = passwordInput.getText().toString();
 
                 login(username, password);
+            }
+        });
+
+        //onClick tbSignup, takes you to sign up activity
+        signupBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+                startActivity(intent);
             }
         });
     }
