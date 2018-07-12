@@ -22,31 +22,41 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
 
-        usernameInput = findViewById(R.id.etUsername);
-        passwordInput = findViewById(R.id.etPassword);
-        loginBtn = findViewById(R.id.tbLogin);
-        signupBtn = findViewById(R.id.tbSignup);
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser == null) {
+            setContentView(R.layout.activity_login);
 
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final String username = usernameInput.getText().toString();
-                final String password = passwordInput.getText().toString();
+            usernameInput = findViewById(R.id.etUsername);
+            passwordInput = findViewById(R.id.etPassword);
+            loginBtn = findViewById(R.id.tbLogin);
+            signupBtn = findViewById(R.id.tbSignup);
 
-                login(username, password);
-            }
-        });
+            loginBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final String username = usernameInput.getText().toString();
+                    final String password = passwordInput.getText().toString();
 
-        //onClick tbSignup, takes you to sign up activity
-        signupBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
-                startActivity(intent);
-            }
-        });
+                    login(username, password);
+                }
+            });
+
+            //onClick tbSignup, takes you to sign up activity
+            signupBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+                    startActivity(intent);
+                }
+            });
+        } else {
+            //if a current user exists
+            final Intent intent = new Intent(LoginActivity.this, TimelineActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
     }
 
     private void login(String username, String password) {
@@ -56,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (e == null) {
                     Log.d("LoginActivity", "login success!");
 
-                    final Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    final Intent intent = new Intent(LoginActivity.this, TimelineActivity.class);
                     startActivity(intent);
                 } else {
                     Log.e("LoginActivity", "Login failure");
