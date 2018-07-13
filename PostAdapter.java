@@ -52,8 +52,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.tvPost.setText(post.getDescription());
         Glide.with(context).load(post.getImage().getUrl()).into(holder.ivImage);
 
-        holder.tvTime.setText(getRelativeTimeAgo(post.getUser().getCreatedAt().toString()));
-
+        holder.tvTime.setText(getRelativeTimeAgo(post.getCreatedAt().toString()));
 
     }
 
@@ -68,7 +67,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     //create ViewHolder class
 
-    public /*static*/ class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView ivImage;
         public TextView tvUsername;
         public TextView tvPost;
@@ -96,16 +95,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 Post post = mPosts.get(position);
                 //create intent for new activity
                 Intent intent = new Intent(context, PostDetailsActivity.class);
-                //put post in intent
+                //put post and time in intent
                 intent.putExtra("post", Parcels.wrap(post));
-                intent.putExtra("time", Parcels.wrap(getRelativeTimeAgo(post.getUser().getCreatedAt().toString())));
+                intent.putExtra("time", Parcels.wrap(getRelativeTimeAgo(post.getCreatedAt().toString())));
                 //show the activity
                 context.startActivity(intent);
             }
         }
     }
 
-    // getRelativeTimeAgo("Mon Apr 01 21:16:23 +0000 2014");
+    // getRelativeTimeAgo to format time created in a nice way
     public String getRelativeTimeAgo(String rawJsonDate) {
         String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
         SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);

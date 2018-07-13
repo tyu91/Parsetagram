@@ -25,7 +25,6 @@ public class LoginActivity extends AppCompatActivity {
 
         ParseUser currentUser = ParseUser.getCurrentUser();
 
-        //TODO: change back to ==
         if (currentUser == null) {
             setContentView(R.layout.activity_login);
 

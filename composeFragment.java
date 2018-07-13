@@ -70,7 +70,6 @@ public class composeFragment extends Fragment {
         refreshButton = v.findViewById(R.id.tbRefresh);
         cameraButton = v.findViewById(R.id.tbCamera);
         image = v.findViewById(R.id.d_ivImage);
-        logoutButton = v.findViewById(R.id.tbLogOut);
 
 
         cameraButton.setOnClickListener(new View.OnClickListener() {
@@ -93,8 +92,11 @@ public class composeFragment extends Fragment {
                 final ParseUser user = ParseUser.getCurrentUser();
                 final ParseFile parseFile = new ParseFile(photoFile);
 
+                //creates post and logs it on server
                 createPost(description, parseFile, user);
-                ((HomeActivity)getActivity()).changeToHome();
+
+                //switch back to the timeline activity once posted
+                ((HomeActivity)getActivity()).returnToTimeline();
             }
 
         });
@@ -105,17 +107,6 @@ public class composeFragment extends Fragment {
                 loadTopPosts();
             }
         });
-
-        /*logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ParseUser.logOut();
-                ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
-
-                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        });*/ //TODO: place logout in some top toolbar or something
 
         return v;
     }

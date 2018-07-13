@@ -38,12 +38,15 @@ public class timelineFragment extends Fragment {
         // Inflate the layout for this fragment and store it in view v
         View v = inflater.inflate(R.layout.fragment_timeline, container, false);
 
+        //do stuff to refresh the window
         swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
         // Setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 postAdapter.clear();
+
+                populateTimeline();
 
                 swipeContainer.setRefreshing(false);
             }
