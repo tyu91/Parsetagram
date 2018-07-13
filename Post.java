@@ -6,12 +6,14 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+//@Parcel
 @ParseClassName("Post")
 public class Post extends ParseObject{
     private static final String KEY_DESCRIPTION = "description";
     private static final String KEY_IMAGE = "image";
     private static final String KEY_USER = "user";
-    //private static final String KEY_NAME = "name";
+
+    //public Post() {}
 
     public String getDescription() {
         return getString(KEY_DESCRIPTION);

@@ -24,6 +24,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         ParseUser currentUser = ParseUser.getCurrentUser();
+
+        //TODO: change back to ==
         if (currentUser == null) {
             setContentView(R.layout.activity_login);
 
@@ -52,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
             });
         } else {
             //if a current user exists
-            final Intent intent = new Intent(LoginActivity.this, TimelineActivity.class);
+            final Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
         }
@@ -66,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (e == null) {
                     Log.d("LoginActivity", "login success!");
 
-                    final Intent intent = new Intent(LoginActivity.this, TimelineActivity.class);
+                    final Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
                 } else {
                     Log.e("LoginActivity", "Login failure");

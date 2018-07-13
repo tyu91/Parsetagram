@@ -1,6 +1,7 @@
 package com.codepath.chattyboi.parsetagram;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
@@ -11,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+
+import org.parceler.Parcels;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -65,7 +68,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     //create ViewHolder class
 
-    public /*static*/ class ViewHolder extends RecyclerView.ViewHolder /*implements View.OnClickListener*/ {
+    public /*static*/ class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView ivImage;
         public TextView tvUsername;
         public TextView tvPost;
@@ -75,10 +78,30 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             super(itemView);
 
             //perform findViewById lookups
-            ivImage = (ImageView) itemView.findViewById(R.id.ivImage);
+            ivImage = (ImageView) itemView.findViewById(R.id.d_ivImage);
             tvUsername = (TextView) itemView.findViewById(R.id.tvUsername);
             tvPost = (TextView) itemView.findViewById(R.id.tvPost);
             tvTime = (TextView) itemView.findViewById(R.id.tvTime);
+
+            itemView.setOnClickListener(this);
+        }
+
+        //onClick itemView, go to PostDetailsActivity
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition();
+            //check if position is valid, aka actually exists in the view
+            if (position != RecyclerView.NO_POSITION) {
+                //get movie at position if position exists
+                Post post = mPosts.get(position);
+                //create intent for new activity
+                Intent intent = new Intent(context, PostDetailsActivity.class);
+                //put post in intent
+                intent.putExtra("post", Parcels.wrap(post));
+                intent.putExtra("time", Parcels.wrap(getRelativeTimeAgo(post.getUser().getCreatedAt().toString())));
+                //show the activity
+                context.startActivity(intent);
+            }
         }
     }
 
@@ -100,6 +123,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         return relativeDate;
 
     }
+
+    // Clean all elements of the recycler
+    public void clear() {
+        mPosts.clear();
+        notifyDataSetChanged();
+    }
+
 
 }
 
