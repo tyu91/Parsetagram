@@ -39,7 +39,6 @@ public class composeFragment extends Fragment {
     private Button refreshButton;
     private Button cameraButton;
     private ImageView image;
-    private Button logoutButton;
 
 
     private File photoFile;

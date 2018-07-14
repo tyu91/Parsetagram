@@ -48,6 +48,7 @@ public class HomeActivity extends AppCompatActivity {
 
         final Fragment fragmentTimeline = new timelineFragment();
         final Fragment fragmentCompose = new composeFragment();
+        final Fragment fragmentProfile = new profileFragment();
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -82,8 +83,8 @@ public class HomeActivity extends AppCompatActivity {
                         fragmentTransaction.replace(R.id.flContainer, fragmentCompose).commit();
                         return true;
                     case R.id.action_profile:
-                        /*fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.flContainer, fragmentTimeline).commit();*/
+                        fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.flContainer, fragmentProfile).commit();
                         return true;
                 }
                 //if id is not the one
@@ -91,17 +92,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
-
-            /*logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ParseUser.logOut();
-                ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
-
-                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        });*/
 
     //called after posting: returning to timeline fragment
     public void returnToTimeline(){
